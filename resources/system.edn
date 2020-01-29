@@ -9,6 +9,6 @@
                    :join?        #profile {:default true
                                            :dev     false
                                            :test    false}
-                   :routes       #req-resolver simple-http-server.server.routes/routes
+                   :routes       #req-resolver simple-http-server.routes/routes
                    :dependencies {:db #ig/ref :database/config}}
  }

@@ -15,3 +15,14 @@
             (let [db (:db context)
                   query-result (database/get-all db)]
               (assoc context :response (ok query-result))))})
+
+(defn string->uuid [id]
+  (java.util.UUID/fromString id))
+
+(def get-person
+  {:name :get-person
+   :enter (fn [{:keys [request] :as context}]
+            (let [db (:db context)
+                  id (get-in request [:path-params :id])
+                  query-result (database/find-entity db (string->uuid id))]
+              (assoc context :response (ok query-result))))})

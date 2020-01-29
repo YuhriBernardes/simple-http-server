@@ -1,7 +1,6 @@
 (ns simple-http-server.components.server
   (:require [io.pedestal.http :as http]
             [integrant.core :as ig]
-            [simple-http-server.server.routes :as routes]
             [simple-http-server.interceptors.default :as default-interceptors]))
 
 (defn new-service-map [{:keys [port server-type join? routes]}]

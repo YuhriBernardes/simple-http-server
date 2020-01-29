@@ -1,8 +1,7 @@
 (ns simple-http-server.config
   (:require [aero.core :as aero]
             [clojure.java.io :as io]
-            [integrant.core :as ig]
-            [simple-http-server.server.routes]))
+            [integrant.core :as ig]))
 
 (def config-path "system.edn")
 
