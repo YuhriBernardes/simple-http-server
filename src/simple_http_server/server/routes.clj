@@ -1,13 +1,14 @@
 (ns simple-http-server.server.routes
   (:require [io.pedestal.http.route :as router]
-            [simple-http-server.server.interceptors :as interceptors]))
+            [io.pedestal.http :as http]
+            [simple-http-server.interceptors.core :as interceptors]))
 
 
 (def routes-set #{["/person" :get [interceptors/get-all-persons]]
-                  ["/person" :post [interceptors/get-all-persons]]
-                  ["/person" :put [interceptors/get-all-persons]]
-                  ["/person" :delete [interceptors/get-all-persons]]})
+                  #_["/person" :post [interceptors/get-all-persons]]
+                  #_["/person" :put [interceptors/get-all-persons]]
+                  #_["/person" :delete [interceptors/get-all-persons]]})
 
-(defn inject-defautl-interceptors [router-set default-interceptors]
-  (let [update-fn (partial concat default-interceptors)]
-    (map #(update % 2 update-fn) router-set)))
+(def routes (router/expand-routes routes-set))
+
+(comment)

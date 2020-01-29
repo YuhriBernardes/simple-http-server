@@ -1,5 +1,6 @@
 (ns simple-http-server.components.database
-  (:require [medley.core :as medley]))
+  (:require [medley.core :as medley]
+            [integrant.core :as ig]))
 
 (defn new-database [initial-state]
   (atom initial-state))
@@ -34,3 +35,14 @@
                              %
                              (update-fn %)))))
   (find-entity db id))
+
+(defmethod ig/init-key :database/config
+  [_ {:keys [initial-state mock-data mock?]}]
+  (let [db (new-database initial-state)]
+    (when mock?
+      (insert db mock-data))
+    db))
+
+(defmethod ig/halt-key! :database/config
+  [_ db]
+  (reset-database db))

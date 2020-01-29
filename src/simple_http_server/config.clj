@@ -1,11 +1,22 @@
 (ns simple-http-server.config
   (:require [aero.core :as aero]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [integrant.core :as ig]
+            [simple-http-server.server.routes]))
 
 (def config-path "system.edn")
 
+(defmethod aero/reader 'ig/ref
+  [_ _ value]
+  (ig/ref value))
 
-(defn read-config
-  ([] (read-config :dev))
+(defmethod aero/reader 'req-resolver
+  [_ _ value]
+  (var-get (requiring-resolve value)))
+
+(defn read-config-file
+  ([] (read-config-file :dev))
   ([profile]
-   (assoc (aero/read-config (io/resource config-path) {:profile profile}) :env profile)))
+   (aero/read-config (io/resource config-path) {:profile profile})))
+
+(read-config-file)
