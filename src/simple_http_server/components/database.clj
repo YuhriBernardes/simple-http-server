@@ -12,6 +12,12 @@
     (swap! db assoc (medley/random-uuid) entity))
   @db)
 
+(defn get-all [db]
+  (let [db-data @db
+        db-ids (keys db-data)
+        db-maps (vals db-data)]
+    (map #(assoc %1 :id %2) db-maps db-ids)))
+
 (defn delete [db ids]
   (doseq [id ids]
     (swap! db dissoc id))

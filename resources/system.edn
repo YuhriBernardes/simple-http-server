@@ -1,0 +1,8 @@
+{:database/config {:initial-state {}
+                   :mock-path     #include "database/mock-data.edn"}
+ :server/config   {:host      #or [#env SERVER_HOST "localhost"]
+                   :port      #or [#env SERVER_PORT "3000"]
+                   :http-type :jetty
+                   :join? #profile {:default false
+                                    :dev true
+                                    :test true}}}
