@@ -1,12 +1,13 @@
 {:database/config {:initial-state {}
                    :mock?         #profile {:prod false
-                                            :dev     true
-                                            :test    true}
+                                            :dev  true
+                                            :test true}
                    :mock-data     #include "database/mock-data.edn"}
  :server/config   {:port         #or [#env SERVER_PORT 3000]
-                   :server-type         :jetty
+                   :server-type  :jetty
                    :join?        #profile {:default true
                                            :dev     false
                                            :test    false}
+                   :auth-hash    #or [#env AUTH_TOKEN ""]
                    :routes       #req-resolver simple-http-server.routes/routes
                    :dependencies {:db #ig/ref :database/config}}}
