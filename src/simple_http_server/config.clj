@@ -17,5 +17,3 @@
   ([] (read-config-file :dev))
   ([profile]
    (aero/read-config (io/resource config-path) {:profile profile})))
-
-(read-config-file)
