@@ -1,14 +1,12 @@
 {:database/config {:initial-state {}
-                   :mock?         #profile {:default false
+                   :mock?         #profile {:prod false
                                             :dev     true
                                             :test    true}
                    :mock-data     #include "database/mock-data.edn"}
- :server/config   {:host         #or [#env SERVER_HOST "localhost"]
-                   :port         #or [#env SERVER_PORT 3000]
+ :server/config   {:port         #or [#env SERVER_PORT 3000]
                    :server-type         :jetty
                    :join?        #profile {:default true
                                            :dev     false
                                            :test    false}
                    :routes       #req-resolver simple-http-server.routes/routes
-                   :dependencies {:db #ig/ref :database/config}}
- }
+                   :dependencies {:db #ig/ref :database/config}}}

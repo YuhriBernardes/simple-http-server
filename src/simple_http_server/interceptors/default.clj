@@ -10,7 +10,7 @@
              (pedestal-log/info :json-interceptor "Starded")
              (let [method        (get request :request-method)
                    request-body  (get request :body)
-                   need-process? (some #(= % method) [:get :post])]
+                   need-process? (some #(= % method) [:put :post])]
                (if need-process?
                  (->> (json/parse-string (slurp request-body) keyword)
                       (assoc-in context [:request :body]))

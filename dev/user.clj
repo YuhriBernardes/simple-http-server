@@ -8,8 +8,12 @@
 (ig-repl/set-prep! (constantly config-map))
 (ig-repl/prep)
 
+(defn reset []
+  (ig-repl/halt)
+  (ig-repl/go))
+
 (comment
   (ig-repl/go)
   (ig-repl/halt)
-  (ig-repl/reset)
+  (reset)
   )

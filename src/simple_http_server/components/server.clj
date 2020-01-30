@@ -18,7 +18,7 @@
       (update ::http/interceptors conj default-interceptors/json-interceptor)))
 
 (defmethod ig/init-key :server/config
-  [_ {:keys [host port routes server-type join? dependencies] :as config}]
+  [_ {:keys [port routes server-type join? dependencies] :as config}]
   (let [service-map (new-service-map config)]
     (-> service-map
         (set-default-interceptors dependencies)

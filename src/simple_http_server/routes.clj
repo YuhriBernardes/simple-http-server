@@ -5,8 +5,9 @@
 
 
 (def routes-set #{["/person" :get [interceptors/get-all-persons]]
+                  ["/person" :post [interceptors/create-person]]
                   ["/person/:id" :get [interceptors/get-person]]
-                  #_["/person" :put [interceptors/get-all-persons]]
-                  #_["/person" :delete [interceptors/get-all-persons]]})
+                  ["/person/:id" :put [interceptors/update-person]]
+                  ["/person/:id" :delete [interceptors/delete-person]]})
 
 (def routes (router/expand-routes routes-set))
