@@ -6,8 +6,8 @@
  :server/config   {:port         #long #or [#env SERVER_PORT 3000]
                    :server-type  :jetty
                    :endpoint     #profile {:prod "0.0.0.0"
-                                           :dev  "localhost"
-                                           :test "localhost"}
+                                           :dev  "0.0.0.0"
+                                           :test "0.0.0.0"}
                    :join?        #profile {:prod true
                                            :dev  false
                                            :test false}

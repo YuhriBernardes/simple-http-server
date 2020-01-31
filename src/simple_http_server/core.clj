@@ -8,5 +8,7 @@
 
 (defn -main
   [& args]
-  (-> (config/read-config-file :prod)
-      (ig/init)))
+  (let [env (keyword (first args))
+        config (config/read-config-file env)]
+    (prn "Starting system with config:\n" config)
+    (ig/init config)))

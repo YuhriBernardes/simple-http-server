@@ -15,7 +15,8 @@ RUN clojure -A:build
 # Start App
 FROM openjdk:11.0.2-jdk-oraclelinux7 as app-env
 
-ENV SERVER_PORT="3030"
+ENV SERVER_PORT="3000"
+ENV APP_ENV="prod"
 
 WORKDIR /var/app
 
@@ -23,6 +24,6 @@ COPY --from=build-env /build/target/lib/lib lib
 COPY --from=build-env /build/target/classes classes
 COPY --from=build-env /build/resources resources
 
-EXPOSE 3000 3030
+EXPOSE 3000
 
-CMD java -cp "classes:lib/*:resources" simple_http_server.core
+CMD java -cp "classes:lib/*:resources" simple_http_server.core "${APP_ENV}"
