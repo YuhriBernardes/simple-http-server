@@ -3,8 +3,10 @@
   (:require [integrant.core :as ig]
             [simple-http-server.config :as config]
             [simple-http-server.components.server]
+            [simple-http-server.routes]
             [simple-http-server.components.database]))
 
-(defn -main [& args]
+(defn -main
+  [& args]
   (-> (config/read-config-file :prod)
       (ig/init)))

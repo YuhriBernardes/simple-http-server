@@ -3,12 +3,13 @@
             [integrant.core :as ig]
             [simple-http-server.interceptors.default :as default-interceptors]))
 
-(defn new-service-map [{:keys [port server-type join? routes]}]
+(defn new-service-map [{:keys [port server-type join? routes endpoint]}]
   (prn "creating service map")
   {::http/port port
    ::http/type server-type
    ::http/join? join?
-   ::http/routes routes})
+   ::http/routes routes
+   ::http/host endpoint})
 
 (defn set-default-interceptors
   [service-map {:keys [db]}]
@@ -18,7 +19,7 @@
       (update ::http/interceptors conj default-interceptors/json-interceptor)))
 
 (defmethod ig/init-key :server/config
-  [_ {:keys [port routes server-type join? dependencies] :as config}]
+  [_ {:keys [port routes server-type join? endpoint dependencies] :as config}]
   (let [service-map (new-service-map config)]
     (-> service-map
         (set-default-interceptors dependencies)

@@ -5,4 +5,4 @@
 
 (defn -main []
   (bundle (make-out-path 'lib nil) {:allow-unstable-deps? true})
-  (compile 'reconciliation-command.core {:compile-path "target/classes"}))
+  (compile 'simple-http-server.core {:compile-path "target/classes"}))
