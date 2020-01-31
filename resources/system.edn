@@ -3,7 +3,7 @@
                                             :dev  true
                                             :test true}
                    :mock-data     #include "database/mock-data.edn"}
- :server/config   {:port         #or [#env SERVER_PORT 3000]
+ :server/config   {:port         #long #or [#env SERVER_PORT 3000]
                    :server-type  :jetty
                    :endpoint     #profile {:prod "0.0.0.0"
                                            :dev  "localhost"
