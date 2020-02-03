@@ -1,6 +1,5 @@
 # Gerar o JAR
 FROM clojure:openjdk-11-tools-deps AS build-env
-# ENV SERVER_PORT="3000"
 
 WORKDIR /build
 
