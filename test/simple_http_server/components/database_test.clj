@@ -15,9 +15,7 @@
 (deftest insert-entity
   (do
     (database/reset-database db)
-    (let [valid-keys  (-> (first mock-data)
-                          keys)
-          db-entities (database/insert db mock-data)
+    (let [db-entities (database/insert db mock-data)
           entity-maps (vals db-entities)]
 
       (testing "Entity count"
@@ -29,9 +27,7 @@
 (deftest find-entity
   (do
     (database/reset-database db)
-    (let [valid-keys         (-> (first mock-data)
-                                 keys)
-          db-entities        (database/insert db mock-data)
+    (let [db-entities        (database/insert db mock-data)
           entity-maps        (vals db-entities)
           entity-ids         (keys db-entities)
           searched-entity    (first entity-maps)
@@ -44,9 +40,7 @@
 (deftest delete-entity
   (do
     (database/reset-database db)
-    (let [valid-keys      (-> (first mock-data)
-                              keys)
-          db-entities     (database/insert db mock-data)
+    (let [db-entities     (database/insert db mock-data)
           entity-maps     (vals db-entities)
           entity-ids      (keys db-entities)
           deleted-entity-id (first entity-ids)
@@ -62,9 +56,7 @@
 (deftest update-entity
   (do
     (database/reset-database db)
-    (let [valid-keys           (-> (first mock-data)
-                                   keys)
-          db-entities          (database/insert db mock-data)
+    (let [ db-entities          (database/insert db mock-data)
           entity-maps          (vals db-entities)
           entity-ids           (keys db-entities)
           before-update-entity (first entity-maps)
