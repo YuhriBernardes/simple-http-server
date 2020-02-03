@@ -56,7 +56,7 @@
 (deftest update-entity
   (do
     (database/reset-database db)
-    (let [ db-entities          (database/insert db mock-data)
+    (let [db-entities          (database/insert db mock-data)
           entity-maps          (vals db-entities)
           entity-ids           (keys db-entities)
           before-update-entity (first entity-maps)
