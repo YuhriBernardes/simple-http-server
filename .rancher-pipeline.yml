@@ -1,0 +1,12 @@
+stages:
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+  when:
+    branch:
+      include:
+      - master
+timeout: 60
+branch: {}
+notification: {}
