@@ -11,6 +11,5 @@
                    :join?        #profile {:prod true
                                            :dev  false
                                            :test false}
-                   :auth-hash    #or [#env AUTH_TOKEN ""]
                    :routes       #req-resolver simple-http-server.routes/routes
                    :dependencies {:db #ig/ref :database/config}}}

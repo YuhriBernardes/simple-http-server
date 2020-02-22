@@ -17,7 +17,8 @@
            {:extra-paths ["test"]
             :extra-deps  {org.clojure/test.check        {:mvn/version "0.9.0"}
                           lambdaisland/kaocha           {:mvn/version "0.0-554"}
-                          lambdaisland/kaocha-cloverage {:mvn/version "0.0-41"}}}
+                          lambdaisland/kaocha-cloverage {:mvn/version "0.0-41"}
+                          clj-http {:mvn/version "0.7.7"}}}
 
            :dev
            {:extra-paths ["dev"]
