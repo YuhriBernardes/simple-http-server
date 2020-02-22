@@ -44,3 +44,19 @@
     (testing "No data loss"
       (is (= (-> (get-db-data sys) data->response set)
              (set body)))))))
+
+(deftest get-person-by-id
+  (with-system [sys system-map]
+    (let [db-data (data->response (get-db-data sys))
+          {:keys [id] :as entity} (first db-data)
+          endpoint (str server-host "person/" id)
+          response (http-client/get endpoint)
+          status   (:status response)
+          body (json/decode (:body response) keyword)]
+      (testing "Status success"
+        (is (< 199 status) 300))
+      (testing "Is unique result"
+        (is (map? body)))
+      (testing "Find the person"
+        (is (= entity
+               body))))))
