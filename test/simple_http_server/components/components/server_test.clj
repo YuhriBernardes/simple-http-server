@@ -40,7 +40,7 @@
           status   (:status response)
           body     (json/decode (:body response) keyword)]
     (testing "Status success"
-      (is (< 199 status) 300))
+      (is (< 199 status 300)))
     (testing "No data loss"
       (is (= (-> (get-db-data sys) data->response set)
              (set body)))))))
@@ -54,7 +54,7 @@
           status   (:status response)
           body (json/decode (:body response) keyword)]
       (testing "Status success"
-        (is (< 199 status) 300))
+        (is (< 199 status 300)))
       (testing "Is unique result"
         (is (map? body)))
       (testing "Find the person"
