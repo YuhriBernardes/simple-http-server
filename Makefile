@@ -87,9 +87,21 @@ docker_clear_all: ## Limpa o ambiente local do docker
 		docker system prune -f
 
 .PHONY: build_app
-build_app: version ## Crea imagem docker da aplicacão
+build_app: version ## Crea imagem docker da aplicação
 	@$(call msg_ok, "Building app $$(PROJECT_NAME) in version $$(cat version)")
 	@docker build --no-cache -t simple-http-server:$$(cat version) -f Dockerfile .
+
+.PHONY: test_app
+test_app: ## Executa os testes da aplicação
+	@clj -A:test -m kaocha.runner
+
+.PHONY: test_coverage
+test_coverage: ## Executa teste de cobertura de código
+	@clj -A:test -m kaocha.runner --plugin cloverage
+
+.PHONY: lint
+lint: ## Verifica possíveis problemas no código
+	@clojure -A:lint
 
 #######################
 ## tools - MENU MAKE ##
