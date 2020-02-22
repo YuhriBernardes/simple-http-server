@@ -91,6 +91,10 @@ build_app: version ## Crea imagem docker da aplicação
 	@$(call msg_ok, "Building app $$(PROJECT_NAME) in version $$(cat version)")
 	@docker build --no-cache -t simple-http-server:$$(cat version) -f Dockerfile .
 
+.PHONY: run_app_container
+run_app_container: ## Executa um container com a aplicacão (PORT: 4040)
+	@docker run --rm -d -p 4040:3000 simple-http-server:1.0.1
+
 .PHONY: test_app
 test_app: ## Executa os testes da aplicação
 	@clj -A:test -m kaocha.runner
