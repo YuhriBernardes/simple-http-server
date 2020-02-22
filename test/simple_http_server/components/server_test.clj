@@ -113,36 +113,3 @@
         (is (< 199 status 300)))
       (testing "Entity removed"
         (is (nil? body))))))
-
-(comment
-
-  (def test-base-url "http://localhost:4040/person")
-
-  (http-client/post "http://localhost:4040/person" {:body (json/encode
-                                                           {:name "yuhri"
-                                                            :age 20})})
-  (-> (http-client/get (str test-base-url "/" "12b63110-b1c7-4b03-b6d6-e59f0bdad5c0"))
-      :body
-      (json/decode keyword))
-
-  (http-client/get "http://localhost:4040/person")
-  (with-system [sys system-map]
-    (let [endpoint (str server-host "person")
-          response (http-client/get endpoint)]
-      (get-db-data sys)))
-
-  (map (fn [[k v]]
-         (assoc v :id k)) (vec {:a {:b 2}}))
-
-  (data->response {#uuid "fe24d5c1-657a-4f83-be1a-54670dcef2e2"
-                   {:name "John Doe", :age 25},
-                   #uuid "9bac469a-236f-439c-a0e5-ab9962782dbe"
-                   {:name "David Borndate", :age 10},
-                   #uuid "7ee5727f-1b82-46f3-8283-427388e7d11c"
-                   {:name "Mary Rose", :age 50},
-                   #uuid "314c867e-ba70-4225-8522-244cfae2009e"
-                   {:name "Powder Gibson", :age 60},
-                   #uuid "a53a80e2-bc9a-4b57-afce-97eb8d3e5c50"
-                   {:name "Julie Madson", :age 15}})
-
-  )
