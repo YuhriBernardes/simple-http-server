@@ -26,3 +26,21 @@
 
 (defn get-db-data [system]
   @(:database/config system))
+
+(def rm-data-ids (partial map #(dissoc % :id)))
+
+(defn  data->response [data]
+  (map (fn [[k v]]
+         (assoc v :id (str k))) (vec data)))
+
+(deftest get-all-persons
+  (with-system [sys system-map]
+    (let [endpoint (str server-host "person")
+          response (http-client/get endpoint)
+          status   (:status response)
+          body     (json/decode (:body response) keyword)]
+    (testing "Status success"
+      (is (< 199 status) 300))
+    (testing "No data loss"
+      (is (= (-> (get-db-data sys) data->response set)
+             (set body)))))))
