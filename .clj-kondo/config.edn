@@ -1,3 +1,6 @@
-{:linters
+{:skip-comments true
+ :linters
  {:unused-binding
-  {:exclude-destructured-keys-in-fn-args true}}}
+  {:exclude [simple-http-server.components.server-test/with-system]
+   :exclude-destructured-keys-in-fn-args true}}
+ :lint-as {simple-http-server.components.server-test/with-system clojure.core/let}}

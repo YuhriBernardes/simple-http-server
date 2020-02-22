@@ -1,6 +1,5 @@
 (ns simple-http-server.routes
   (:require [io.pedestal.http.route :as router]
-            [io.pedestal.http :as http]
             [simple-http-server.interceptors.core :as interceptors]))
 
 

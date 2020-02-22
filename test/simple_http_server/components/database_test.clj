@@ -41,7 +41,6 @@
   (do
     (database/reset-database db)
     (let [db-entities     (database/insert db mock-data)
-          entity-maps     (vals db-entities)
           entity-ids      (keys db-entities)
           deleted-entity-id (first entity-ids)
           db-after-delete (database/delete db [deleted-entity-id])

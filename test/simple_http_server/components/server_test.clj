@@ -63,7 +63,7 @@
                body))))))
 
 (deftest create-person
-  (with-system [sys system-map]
+  (with-system [_sys system-map]
     (let [endpoint   (str server-host "person")
           new-entity {:name "new-person"
                       :age  20}
@@ -76,13 +76,15 @@
       (testing "Status success"
         (is (< 199 status 300)))
       (testing "Entity created"
-        (is (not (empty? (clj-set/intersection #{new-entity}
-                                               (set body)))))))))
+        (is (seq (clj-set/intersection #{new-entity}
+                                        (set body))))))))
 
 
-;; TODO: Testes de update
+;; TODO: `update` test
+;; TODO: `delete` test
 
 (comment
+
   (http-client/post "http://localhost:4040/person" {:body (json/encode
                                                            {:name "yuhri"
                                                             :age 20})})
