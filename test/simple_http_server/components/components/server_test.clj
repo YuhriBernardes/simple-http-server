@@ -61,6 +61,23 @@
         (is (= entity
                body))))))
 
+(deftest create-person
+  (with-system [sys system-map]
+    (let [endpoint   (str server-host "person")
+          new-entity {:name "new-person"
+                      :age  20}
+          response   (http-client/post endpoint {:body (json/encode new-entity)})
+          status     (:status response)
+          result     (http-client/get endpoint)
+          body       (-> (:body result)
+                         (json/decode keyword)
+                         rm-data-ids)]
+      (testing "Status success"
+        (is (< 199 status 300)))
+      (testing "Entity created"
+        (is (not (empty? (clj-set/intersection #{new-entity}
+                                               (set body)))))))))
+
 (comment
   (http-client/post "http://localhost:4040/person" {:body (json/encode
                                                            {:name "yuhri"
