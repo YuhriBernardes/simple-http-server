@@ -1,6 +1,7 @@
 (ns simple-http-server.components.server-test
   (:require
    [clojure.test :refer [deftest testing is]]
+   [simple-http-server.components.server]
    [clojure.set :as clj-set]
    [cheshire.core :as json]
    [simple-http-server.config :as config]
@@ -77,6 +78,9 @@
       (testing "Entity created"
         (is (not (empty? (clj-set/intersection #{new-entity}
                                                (set body)))))))))
+
+
+;; TODO: Testes de update
 
 (comment
   (http-client/post "http://localhost:4040/person" {:body (json/encode
