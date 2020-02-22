@@ -53,6 +53,7 @@
           endpoint (str server-host "person/" id)
           response (http-client/get endpoint)
           status   (:status response)
+
           body (json/decode (:body response) keyword)]
       (testing "Status success"
         (is (< 199 status 300)))
@@ -82,6 +83,22 @@
 
 ;; TODO: `update` test
 ;; TODO: `delete` test
+(deftest update-person
+  (with-system [sys system-map]
+    (let [db-data (data->response (get-db-data sys))
+          updated-entity (first db-data)
+          updated-key (:id updated-entity)
+          updated-values {:age 0}
+          endpoint   (str server-host "person/" updated-key)
+          response   (http-client/put endpoint {:body (json/encode updated-values)})
+          status     (:status response)
+          body       (-> (:body response)
+                         (json/decode keyword)
+                         rm-data-ids)]
+      (testing "Status success"
+        (is (< 199 status 300)))
+      (testing "Entity updated"
+        (is (not= updated-entity body))))))
 
 (comment
 
