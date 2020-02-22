@@ -17,16 +17,18 @@ clj -m simple-http-server.core arg1
 1. Build docker image
 
 ``` shell
-docker build . --no-cache -t simple-server:0.0.1
+make build_app
 ```
 
 2. Run docker container
 
 ``` shell
-docker run --rm -d -p <your-port>:3000 simple-server:0.0.1
+make run_app_container
 ```
 
-### Docker envs:
+If you want to see other operations, run `make` or `make help`
+
+### Docker ENVs:
 
 | Name        | Default | Description                                                                                |
 |:-----------:|:-------:|:-------------------------------------------------------------------------------------------|
