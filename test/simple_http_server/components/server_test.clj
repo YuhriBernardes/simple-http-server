@@ -81,8 +81,6 @@
                                         (set body))))))))
 
 
-;; TODO: `update` test
-;; TODO: `delete` test
 (deftest update-person
   (with-system [sys system-map]
     (let [db-data (data->response (get-db-data sys))
@@ -100,13 +98,34 @@
       (testing "Entity updated"
         (is (not= updated-entity body))))))
 
+(deftest delete-person
+  (with-system [sys system-map]
+    (let [db-data        (data->response (get-db-data sys))
+          deleted-entity (first db-data)
+          deleted-key    (:id deleted-entity)
+          endpoint       (str server-host "person/" deleted-key)
+          response       (http-client/delete endpoint)
+          status         (:status response)
+          result (http-client/get endpoint)
+          body (-> (:body result)
+                   (json/decode keyword))]
+      (testing "Status success"
+        (is (< 199 status 300)))
+      (testing "Entity removed"
+        (is (nil? body))))))
+
 (comment
+
+  (def test-base-url "http://localhost:4040/person")
 
   (http-client/post "http://localhost:4040/person" {:body (json/encode
                                                            {:name "yuhri"
                                                             :age 20})})
+  (-> (http-client/get (str test-base-url "/" "12b63110-b1c7-4b03-b6d6-e59f0bdad5c0"))
+      :body
+      (json/decode keyword))
 
-  (http-client/get "http://localhost:4040/person/a2983d58-50c8-4c00-929c-98aa30bd7428")
+  (http-client/get "http://localhost:4040/person")
   (with-system [sys system-map]
     (let [endpoint (str server-host "person")
           response (http-client/get endpoint)]
